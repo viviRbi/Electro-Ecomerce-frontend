@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import { authenticate, isAuth } from '../helper'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 
-const Signin = () => {
+const Signin = ({ history }) => {
   const [values, setValues] = useState({
     email: '',
     password: '',
     buttonText: 'Submit'
   })
-  const { name, email, password, buttonText } = values
+  const { email, password, buttonText } = values
   const handleChange = type => (e) => {
     setValues({ ...values, [type]: e.target.value })
   }
@@ -20,7 +20,7 @@ const Signin = () => {
     setValues({ ...values, buttonText: 'Submitting' })
     axios({
       method: 'POST',
-      url: `${process.env.REACT_APP_API}/signin`,
+      url: `${process.env.REACT_APP_BACKEND_API}/signin`,
       data: { email, password }
     })
       .then(response => {
@@ -29,13 +29,12 @@ const Signin = () => {
         //local storage: id, name, email, role that sent as json at signin controller
         authenticate(response, () => {
           setValues({ ...values, email: '', password: '', buttonText: 'Submited' })
-          toast.success(`Hey ${response.data.user.name}`)
+          // toast.success(`Hey ${response.data.user.name}`)
+          isAuth() && isAuth().role === 'admin' ? history.push('/admin') : history.push('/private')
         })
       })
       .catch(error => {
-        console.log('SIGNIN ERROR', error.response.data)
         setValues({ ...values, buttonText: 'Submit' })
-        toast.error(error.response.data.error)
       })
   }
   const signinForm = () => {

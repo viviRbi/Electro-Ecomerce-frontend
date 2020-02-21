@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
 import { ToastContainer, toast } from 'react-toastify'
@@ -17,7 +17,7 @@ const Activate = ({ match }) => {
     if (token) {
       setValues({ ...values, name, token })
     }
-  }, [])
+  }, [match.params.token, values])
   //if don't pass anything inside the array, this function runs everytime state change
   //if pass name, function runs everytime name change
 
@@ -28,7 +28,7 @@ const Activate = ({ match }) => {
     // post token to backend to decode then save new user to database
     axios({
       method: 'POST',
-      url: `${process.env.REACT_APP_API}/account-activation`,
+      url: `${process.env.REACT_APP_BACKEND_API}/account-activation`,
       data: { token }
     })
       .then(response => {
@@ -51,8 +51,7 @@ const Activate = ({ match }) => {
   return (
     <div>
       <ToastContainer />
-      {/* {JSON.stringify({ name, email, password })} */}
-      {activationLink()}
+      {show && activationLink()}
     </div>
   )
 }

@@ -1,18 +1,14 @@
 import React, { useState } from 'react'
-import { Redirect } from 'react-router-dom'
 import axios from 'axios'
-import { isAuth } from '../helper'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 
-const Signup = () => {
+const Forgot = () => {
   const [values, setValues] = useState({
-    name: '',
     email: '',
-    password: '',
-    buttonText: 'Submit'
+    buttonText: 'Request'
   })
-  const { name, email, password, buttonText } = values
+  const { email, buttonText } = values
   const handleChange = type => (e) => {
     setValues({ ...values, [type]: e.target.value })
   }
@@ -20,31 +16,27 @@ const Signup = () => {
     e.preventDefault()
     setValues({ ...values, buttonText: 'Submitting' })
     axios({
-      method: 'POST',
-      url: `${process.env.REACT_APP_BACKEND_API}/signup`,
-      data: { name, email, password }
+      method: 'PUT',
+      url: `${process.env.REACT_APP_BACKEND_API}/forgot-password`,
+      data: { email }
     })
       .then(response => {
-        console.log('sign up sucess')
-        setValues({ ...values, name: '', email: '', password: '', buttonText: 'Submited' })
+        console.log('forgot pass sucess')
         toast.success(response.data.message)
+        setValues({ ...values, buttonText: 'Requested' })
       })
       .catch(error => {
-        console.log('SIGNUP ERROR', error.response.data.error)
-        setValues({ ...values, buttonText: 'Submit' })
+        console.log('forgot pass ERROR', error.response.data.error)
+        setValues({ ...values, buttonText: 'Request' })
         toast.error(error.response.data.error)
       })
   }
-  const signupForm = () => {
+  const forgotPasswordForm = () => {
     return (
       <form>
         <div className='form-group'>
-          <label className='text-muted'>Name</label>
-          <input autoComplete='true' onChange={handleChange('name')} type='text' className='form-control' />
           <label className='text-muted'>Email</label>
           <input autoComplete='true' onChange={handleChange('email')} type='text' className='form-control' />
-          <label className='text-muted'>Password</label>
-          <input autoComplete='true' onChange={handleChange('password')} type='password' className='form-control' />
           <button type='submit' className='btn' onClick={e => handleSubmit(e)}>{buttonText}</button>
         </div>
       </form>
@@ -53,12 +45,10 @@ const Signup = () => {
   return (
     <div>
       <ToastContainer />
-      {isAuth() ? <Redirect to='/' /> : null}
       {/* {JSON.stringify({ name, email, password })} */}
-      <h1>Sign up</h1>
-      {signupForm()}
+      {forgotPasswordForm()}
     </div>
   )
 }
 
-export default Signup
+export default Forgot
