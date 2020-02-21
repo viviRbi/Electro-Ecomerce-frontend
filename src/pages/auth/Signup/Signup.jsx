@@ -30,7 +30,6 @@ const Signup = () => {
         toast.success(response.data.message)
       })
       .catch(error => {
-        console.log('SIGNUP ERROR', error.response.data.error)
         setValues({ ...values, buttonText: 'Submit' })
         toast.error(error.response.data.error)
       })
