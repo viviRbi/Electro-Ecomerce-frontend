@@ -6,7 +6,7 @@ import { isAuth } from './helper';
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest}
     render={props =>
-      isAuth() ? <Component {...props} /> : (
+      isAuth() ? <Component {...props} {...rest} /> : (
         <Redirect
           to={{ pathname: '/signin', state: { from: props.location } }} />
       )}></Route>

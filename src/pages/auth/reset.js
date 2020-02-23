@@ -49,7 +49,8 @@ const Reset = ({ match }) => {
         <div className='form-group'>
           <label className='text-muted'>Password</label>
           <input autoComplete='true' onChange={e => handleChange(e)} type='password' className='form-control' />
-          <button type='submit' className='btn' onClick={e => handleSubmit(e)}>{buttonText}</button>
+          <br />
+          <button type='submit' className="btn btn-sm btn-outline-info" onClick={e => handleSubmit(e)}>{buttonText}</button>
         </div>
       </form>
     )

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
 import { authenticate, isAuth } from '../helper'
 import { ToastContainer, toast } from 'react-toastify'
@@ -45,7 +45,8 @@ const Signin = ({ history }) => {
           <input autoComplete='true' onChange={handleChange('email')} type='text' className='form-control' />
           <label className='text-muted'>Password</label>
           <input autoComplete='true' onChange={handleChange('password')} type='password' className='form-control' />
-          <button type='submit' className='btn' onClick={e => handleSubmit(e)}>{buttonText}</button>
+          <br />
+          <button type='submit' className="btn btn-sm btn-outline-info" onClick={e => handleSubmit(e)}>{buttonText}</button>
         </div>
       </form>
     )
@@ -57,6 +58,10 @@ const Signin = ({ history }) => {
       {isAuth() ? <Redirect to='/' /> : null}
       <h1>Sign in</h1>
       {signinForm()}
+      <br />
+      <Link to="/auth/password/forgot" className="btn btn-sm btn-outline-danger">
+        Forgot Password
+      </Link>
     </div>
   )
 }
