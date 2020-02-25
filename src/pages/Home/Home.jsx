@@ -10,6 +10,8 @@ const Home = () => {
       .then(res => res.json())
       .then(res => (setProducts(res), setLoading(false)))
   }
+
+
   useEffect(() => {
     fetchProducts()
   }, [])
@@ -21,6 +23,8 @@ const Home = () => {
         <div key={each._id}>
           <h1>{each.name}</h1>
           <div className="pro-img" style={{ backgroundImage: `url(${process.env.REACT_APP_BACKEND_ITEMS}/product/photo/${each._id})` }}></div>
+          <p>{each.category.name}</p>
+          <p>Price: ${each.price}</p>
         </div>
       ))
         : null

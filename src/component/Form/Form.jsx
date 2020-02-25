@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import "./Form.css"
 import { createProduct, getCategories } from "./form_helper"
 
-const Form = ({ escHandle, create, setCreate }) => {
+const Form = ({ escHandle, create, setCreate, products, setProducts }) => {
   const [values, setValues] = useState({
     name: '',
     description: '',
@@ -17,13 +17,17 @@ const Form = ({ escHandle, create, setCreate }) => {
   const { name, description, price, quantity, categories, category, createdProduct, formData } = values
   const handleChange = name => (e) => {
     const value = name === "photo" ? e.target.files[0] : e.target.value
+    //set formData to obj wirh name:value
     formData.set(name, value)
     setValues({ ...values, [name]: value })
   }
   const submitHandle = (e) => {
     e.preventDefault()
     setValues({ ...values, loading: true })
-    createProduct(formData)
+    createProduct(formData, products, setProducts)
+    // fetch(`${process.env.REACT_APP_BACKEND_ITEMS}/product`)
+    //   .then(res => res.json())
+    //   .then(res => setProducts(res))
     setValues({ ...values, name: '', description: '', photo: '', price: '', quantity: '', loading: false })
   }
 

@@ -6,6 +6,7 @@ const Admin = () => {
   const [create, setCreate] = useState(false)
   const [createCate, setCreateCate] = useState(false)
   const [cateName, setCateName] = useState('')
+
   const createToggle = () => {
     setCreate({ create: true })
   }
@@ -18,12 +19,6 @@ const Admin = () => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(false)
 
-  const fetchProducts = () => {
-    setLoading(true)
-    fetch(`${process.env.REACT_APP_BACKEND_ITEMS}/product`)
-      .then(res => res.json())
-      .then(res => (setProducts(res), setLoading(false)))
-  }
   const remove = (e) => {
     const id = e.target.attributes.getNamedItem('id').value
     fetch(`${process.env.REACT_APP_BACKEND_ITEMS}/product/delete/${id}`, {
@@ -33,7 +28,7 @@ const Admin = () => {
       }
     })
       .then(res => res.json())
-      .then(res => setProducts({ products: res }))
+      .then(res => setProducts(res))
       .catch(err => console.log(err))
   }
   const cateChangeHandle = e => {
@@ -58,7 +53,7 @@ const Admin = () => {
     setCreateCate({ createCate: true })
   }
   const cateClass = createCate.createCate ? "display" : "none"
-
+  console.log(products)
   const categoryForm = () => (
     <form className={`form bt-3 ${cateClass}`}>
       <section className="form-holder">
@@ -70,11 +65,23 @@ const Admin = () => {
     </form>
   )
   useEffect(() => {
-    fetchProducts()
+    setLoading(true)
+    fetch(`${process.env.REACT_APP_BACKEND_ITEMS}/product`)
+      .then(res => res.json())
+      .then(res => (setProducts(res), setLoading(false)))
+    setLoading(true)
+
+    fetch(`${process.env.REACT_APP_BACKEND_ITEMS}/category`)
+      .then(res => res.json())
+      .then(cate => {
+        const cateName = cate.forEach(cate => cate.name)
+        setCateName({ categories: cateName })
+      })
+      .then(() => setLoading(false))
   }, [])
   return (
     <div>
-      {create ? <Form escHandle={escHandle} create={create} setCreate={setCreate} /> : <p></p>}
+      {create ? <Form products={products} setProducts={setProducts} escHandle={escHandle} create={create} setCreate={setCreate} /> : <p></p>}
       <h1>Admin page</h1>
       <section className="admin-button">
         <button className="btn btn-outline-primary" onClick={e => createToggle(e)}>Create product</button>
@@ -85,9 +92,10 @@ const Admin = () => {
       {categoryForm()}
       <div>
         {loading ? <h2>Loading</h2> : ""}
-        <h1>Home</h1>
+        <h1>Product</h1>
         {products ? products.map(each => (
           <div key={each._id}>
+
             <h1>{each.name}</h1>
             <div className="pro-img" style={{ backgroundImage: `url(${process.env.REACT_APP_BACKEND_ITEMS}/product/photo/${each._id})` }}></div>
             <button className="btn btn-primary">Update</button>
@@ -95,6 +103,8 @@ const Admin = () => {
               id={each._id}
               onClick={e => remove(e)}
             >Delete</button>
+            <p>{each.category.name}</p>
+            <p>Price: ${each.price}</p>
           </div>
         ))
           : null

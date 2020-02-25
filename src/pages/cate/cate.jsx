@@ -13,7 +13,17 @@ const CateList = () => {
   }, [])
 
   const list = () => {
-    return categories.categories.map(e => <h4>{e.name}</h4>)
+    return categories.categories.map(e => (
+      <h4 key={e._id}>{e.name} &nbsp;&nbsp;
+    <small>
+          Update
+    </small>
+        &nbsp;&nbsp;
+        <small>
+          Delete
+    </small>
+      </h4>
+    ))
   }
   return (
     <div>

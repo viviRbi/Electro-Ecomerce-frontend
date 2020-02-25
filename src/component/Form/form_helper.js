@@ -1,4 +1,4 @@
-export const createProduct = (product) => {
+export const createProduct = (product, products, setProducts) => {
   fetch(`${process.env.REACT_APP_BACKEND_ITEMS}/product/create`, {
     method: "POST",
     headers: {
@@ -6,9 +6,13 @@ export const createProduct = (product) => {
     },
     body: product
   })
-    .then(res => res.json())
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+    // .then(res => window.location.reload(false))
+    .then(
+      fetch(`${process.env.REACT_APP_BACKEND_ITEMS}/product`)
+        .then(res => res.json())
+        .then(res => setProducts(res))
+    )
+    .then(() => console.log('create success'))
 }
 
 export const updateProduct = (product) => {
@@ -30,7 +34,6 @@ export const getCategories = () => {
     method: 'GET'
   })
     .then(response => response.json())
-    .catch(err => console.log(err))
 };
 
 export const createCategory = (category) => {
