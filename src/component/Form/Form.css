@@ -1,0 +1,25 @@
+.form{
+  position: fixed;
+  top: 0;
+  bottom:0;
+  left:0;
+  right:0;
+  background: whitesmoke;
+  opacity: 0.8;
+}
+.form-holder{
+  margin: 25vmin auto;
+  width: 50vw;
+  height: 50vh;
+  text-align: center;
+}
+.form-holder input{
+  display: block;
+  margin: 2vmin auto;
+}
+.none{
+  display: none;
+}
+.display{
+  display: block;
+}

@@ -62,6 +62,10 @@ const Signin = ({ history }) => {
       <Link to="/auth/password/forgot" className="btn btn-sm btn-outline-danger">
         Forgot Password
       </Link>
+      <p>Admin</p>
+      <p>id: thaovyletruong@gmail.com / pass: thaovyletruong@gmail.com</p>
+      <p>Subcriber</p>
+      <p>id: / pass: </p>
     </div>
   )
 }

@@ -13,8 +13,8 @@ const Signup = () => {
     buttonText: 'Submit'
   })
   const { name, email, password, buttonText } = values
-  const handleChange = type => (e) => {
-    setValues({ ...values, [type]: e.target.value })
+  const handleChange = name => (e) => {
+    setValues({ ...values, [name]: e.target.value })
   }
   const handleSubmit = (e) => {
     e.preventDefault()

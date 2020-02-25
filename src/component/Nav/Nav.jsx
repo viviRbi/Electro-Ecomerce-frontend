@@ -28,7 +28,7 @@ const Nav = ({ history }) => {
             }}> Sign out</Link></li>
 
           <li className='nav-item'>
-            <Link to={`${loginPath}`} style={{ cursor: 'pointer' }} style={isActive(`${loginPath}`)}>
+            <Link to={`${loginPath()}`} style={{ cursor: 'pointer' }} style={isActive(`${loginPath}`)}>
               {isAuth().name}</Link>
           </li>
         </>

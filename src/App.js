@@ -1,4 +1,5 @@
 import React from 'react'
+import "./App.css"
 import Layout from './core/Layout'
 import { Switch, Route } from 'react-router-dom'
 import Home from './pages/Home/Home'
@@ -11,6 +12,7 @@ import Admin from './core/Admin'
 import AdminRoute from "./pages/auth/AdminRoute"
 import Forgot from './pages/auth/forgot'
 import Reset from './pages/auth/reset'
+import CateList from './pages/cate/cate'
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
         <Route exact path="/auth/activate/:token" component={Activate} />
         <PrivateRoute exact path="/private" component={Private} />
         <AdminRoute exact path="/admin" component={Admin} />
+        <AdminRoute exact path="/admin/categories" component={CateList} />
         <Route exact path="/auth/password/forgot" component={Forgot} />
         <Route exact path="/auth/password/reset/:token" component={Reset} />
       </Switch>

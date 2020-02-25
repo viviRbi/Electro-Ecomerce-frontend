@@ -1,0 +1,19 @@
+li{
+  margin: auto 3vmin;
+  font-size: 2vmin;
+}
+.pro-img{
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: inline-block;
+  margin: 3vmin;
+  width: 30vmin;
+  height: 30vmin;
+}
+.admin-button{
+  margin: 4vmin auto;
+}
+.admin-button button{
+  margin: auto 3vmin;
+}
