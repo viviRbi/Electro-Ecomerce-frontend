@@ -20,7 +20,7 @@ const Home = () => {
       {products ? products.map(each => (
         <div key={each._id}>
           <h1>{each.name}</h1>
-          <div className="pro-img" style={{ backgroundImage: `url(${process.env.REACT_APP_BACKEND_ITEMS}/product/photo/${each._id})`, height: '20vh', width: '30vw' }}></div>
+          <div className="pro-img" style={{ backgroundImage: `url(${process.env.REACT_APP_BACKEND_ITEMS}/product/photo/${each._id})` }}></div>
         </div>
       ))
         : null
